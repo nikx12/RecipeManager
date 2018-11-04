@@ -13,6 +13,7 @@ app.use(express.static("public"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methoOverride("_method"));
 app.use(morgan("tiny"));
+app.use(expressValidator());
 
 app.use('/recipes', recipeRoutes);
 // var recipes= [
