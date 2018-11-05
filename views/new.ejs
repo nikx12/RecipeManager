@@ -1,0 +1,22 @@
+<% include ./partials/header %>
+
+<div class="">
+    <div class="">New Recipe</div>
+    <form class="" action="/new" method="POST">
+        <div class="">
+            <label>Title</label>
+            <input type="text" name="recipe[title]" placeholder="Title">    
+        </div>
+        <div class="">
+            <label>Image</label>
+            <input type="text" name="recioe[image]" placeholder="Image">     
+        </div>
+        <div class="">
+                <label>Recipe Content</label>
+                <textarea  name="recipe[body]"></textarea>
+        </div>
+       
+        <input class="" type="submit" >
+    </form>
+</div>
+<% include ./partials/footer %>

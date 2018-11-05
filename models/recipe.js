@@ -1,4 +1,4 @@
-var mongoose = require("mongoose");
+ var mongoose = require("mongoose");
 mongoose.connect('mongodb://localhost:27017/RecipeManager', { useNewUrlParser: true });
 var recipeSchema = new mongoose.Schema({
    userName: String,
@@ -9,4 +9,5 @@ var recipeSchema = new mongoose.Schema({
 
 var Recipe = mongoose.model("Recipe", recipeSchema);
 module.exports = Recipe;
+
 // https://www.food2fork.com/api/search API for recipe
