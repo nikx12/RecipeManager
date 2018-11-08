@@ -30,18 +30,23 @@ router.get("/all", function(req, res, next) {
       }
     }
   );
-  //  res.send()
-  //
 });
 
-router.get("/new", function(req, res, next) {
+router.get("/new", function(req, res) {
   res.render("new");
 });
 
-//       router.get('/:id', function(req, res, next){
-//         var recipe = Recipe.find(val => val.id === Number(req.params.id));
-//         res.render('show', {recipe});
-//       });
+router.post("/new", function(req, res){
+        console.log(req.body, "%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+        res.send("<h1>You have clicked on submit for new recipe</h1>");
+        
+})
+
+      router.get('/:id', function(req, res, next){
+              console.log(req.body,"!!!!!!!!!!!!!!!!!!!!!!");
+       // var recipe = Recipe.find(val => val.id === Number(req.params.id));
+        res.render('show', {recipe: req.body});
+      });
 
 //       router.get('/:id/edit', function(req, res, next){
 //         var recipe = Recipe.find(val => val.id === Number(req.params.id));

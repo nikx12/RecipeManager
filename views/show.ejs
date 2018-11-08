@@ -1,0 +1,23 @@
+<% include ./partials/header %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-3">
+            <p class="lead">My Recipe</p>
+           
+        </div>
+        <div class="col-md-9">
+            <div class="thumbnail">
+                <img class="" src="<%= recipe.image_url %>" height="150px" width="150px" >
+                <div class="">
+                    <h4 class="pull-right">$2</h4>
+                    <h4><a><%=recipe.title%></a></h4>
+                    <p><%= recipe.description %></p>
+                </div>
+            </div>
+        
+            </div>
+        </div>
+    </div>
+</div>
+
+<% include ./partials/footer %>
