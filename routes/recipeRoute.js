@@ -38,8 +38,19 @@ router.get("/new", function(req, res) {
 
 router.post("/new", function(req, res){
         console.log(req.body, "%%%%%%%%%%%%%%%%%%%%%%%%%%%")
-        res.send("<h1>You have clicked on submit for new recipe</h1>");
-        
+        // res.send("<h1>You have clicked on submit for new recipe</h1>");
+        var name= req.body.name;
+        var image= req.body.image;
+        var desc= req.body.desc;
+        var newRecipe= {name:name, image:image, desc:desc};
+        Recipe.create(newRecipe, function(err, newRecipeObj){
+          if(err){
+            console.log(err);
+          }
+          else{
+            res.redirect("/all");
+          }
+        })
 })
 
       router.get('/:id', function(req, res, next){
