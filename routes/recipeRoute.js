@@ -12,24 +12,37 @@ router.get("/", function(req, res, next) {
 });
 
 router.get("/all", function(req, res, next) {
-  request(
-    " https://www.food2fork.com/api/search?key=5785b0bb7e316777b636de085c35d1bf",
-    function(error, response, body) {
-      if (!error && response.statusCode == 200) {
-        var x = JSON.parse(body);
-        console.log(x,"************");
-        var y = x.recipes;
-        console.log(y,"###########################");
-        // y.forEach(data => {
-          res.render("index", { recipes:y });
-        // });
-        // fs.writeFile('mynewfile3.js', JSON.stringify(y), function (err) {
-        //         if (err) throw err;
-        //         console.log('Saved!');
-        //       });
-      }
+  // request(
+  //   " https://www.food2fork.com/api/search?key=5785b0bb7e316777b636de085c35d1bf",
+  //   function(error, response, body) {
+  //     if (!error && response.statusCode == 200) {
+  //       var x = JSON.parse(body);
+  //       console.log(x,"************");
+  //       var y = x.recipes;
+  //       console.log(y,"###########################");
+  //       // y.forEach(data => {
+  //         res.render("index", { recipes:y });
+  //       // });
+  //       // fs.writeFile('mynewfile3.js', JSON.stringify(y), function (err) {
+  //       //         if (err) throw err;
+  //       //         console.log('Saved!');
+  //       //       });
+  //     }
+  //   }
+  // );
+
+  Recipe.find({},function(err,allRecipes){
+    if(err)
+    {
+        console.log(err);
     }
-  );
+    else{
+        res.render("campgrounds",{recipe:allRecipes});
+    }
+  });
+  app.get("/recipees/landing",function(req,res){
+      res.render("landing");
+  });
 });
 
 router.get("/new", function(req, res) {
