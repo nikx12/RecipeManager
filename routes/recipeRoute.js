@@ -37,7 +37,7 @@ router.get("/all", function(req, res, next) {
         console.log(err);
     }
     else{
-        res.render("campgrounds",{recipe:allRecipes});
+        res.render("show",{recipe:allRecipes});
     }
   });
   app.get("/recipees/landing",function(req,res){
@@ -52,16 +52,18 @@ router.get("/new", function(req, res) {
 router.post("/new", function(req, res){
         console.log(req.body, "%%%%%%%%%%%%%%%%%%%%%%%%%%%")
         // res.send("<h1>You have clicked on submit for new recipe</h1>");
+        var user= "test"
         var name= req.body.name;
         var image= req.body.image;
         var desc= req.body.desc;
-        var newRecipe= {name:name, image:image, desc:desc};
+        var newRecipe= {userName: user,name:name, image:image, desc:desc};
         Recipe.create(newRecipe, function(err, newRecipeObj){
           if(err){
             console.log(err);
           }
           else{
-            res.redirect("/all");
+            console.log("Entry made to db")
+            res.redirect("/index");
           }
         })
 })

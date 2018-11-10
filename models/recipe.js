@@ -1,8 +1,8 @@
 var mongoose = require("mongoose");
-mongoose.connect(
-  "mongodb://localhost:27017/RecipeManager",
-  { useNewUrlParser: true }
-);
+// mongoose.connect(
+//   "mongodb://localhost:27017/RecipeManager",
+//   { useNewUrlParser: true }
+// );
 var recipeSchema = new mongoose.Schema({
   userName: {
     type: mongoose.Schema.Types.ObjectId,
