@@ -10,7 +10,9 @@ var recipeSchema = new mongoose.Schema({
   // },
   title: String,
   image: String,
-  description: String
+  description: String,
+  ingredients: String,
+  method: String
 });
 
 var Recipe = mongoose.model("Recipe", recipeSchema);
