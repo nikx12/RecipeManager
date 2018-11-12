@@ -44,6 +44,10 @@ app.post("/login", (req, res)=>{
     res.render("/allRecipes")
 })
 
+app.get("/signup", (req, res)=>{
+    res.render("signUp")
+})
+
 // app.get("/recipes",function(req, res) {
     
 //     res.render("index", {recipes:recipes});
