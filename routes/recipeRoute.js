@@ -7,9 +7,9 @@ var fs = require('fs');
 
 
 //home page route
-router.get("/", function(req, res, next) {
-  res.render("landing", { Recipe });
-});
+// router.get("/", function(req, res, next) {
+//   res.render("landing", { Recipe });
+// });
 
 router.get("/all", function(req, res, next) {
    Recipe.find({},function(err,allRecipes){

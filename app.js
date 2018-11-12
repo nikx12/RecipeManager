@@ -37,6 +37,13 @@ app.get("/", function(req, res) {
 
 });
 
+app.get("/login", (req, res)=>{
+    res.render("login");
+})
+app.post("/login", (req, res)=>{
+    res.render("/allRecipes")
+})
+
 // app.get("/recipes",function(req, res) {
     
 //     res.render("index", {recipes:recipes});
