@@ -1,9 +1,9 @@
-<% include ../partials/header %>
+<% include ./partials/header %>
 <div class="container">
     <div class="row">
         <h1 style="text-align: center;">Creating a New Recipe</h1>
         <div style="width: 30%; margin: 25px auto;">
-            <form action="/recipes" method="POST">
+            <form action="./new" method="POST">
            <div class="form-group">
                 <input class="form-control" type="text" name="title" placeholder="Title">
             </div>
@@ -24,10 +24,10 @@
             </div>
             
             </form>
-             <a href="/recipes">Go Back</a>
+             <a href="/">Go Back</a>
         </div>
 
        
 </div>
 </div>
-<% include ../partials/footer %>
+<% include ./partials/footer %>

@@ -28,7 +28,7 @@ router.get("/", function(req, res, next) {
 });
 
 router.get("/new", function(req, res) {
-  res.render("new");
+  res.render("addRecipe");
 });
 
 router.post("/new", function(req, res){
