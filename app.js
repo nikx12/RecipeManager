@@ -1,12 +1,12 @@
 var express = require("express"),
     app = express(),
     methoOverride = require("method-override"), 
-    bodyParser = require("body-parser"),
-    mongoose = require("mongoose");
+    bodyParser = require("body-parser");
+    // mongoose = require("mongoose");
     var expressValidator= require("express-validator");
     var recipeRoutes = require("./routes/recipeRoute");
     var morgan = require("morgan");
-    var Recipe = require("./models/recipe");
+    // var Recipe = require("./models/recipe");
 // APP CONFIG
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -24,6 +24,7 @@ app.get("/", function(req, res) {
 
 });
 
+//login routes
 app.get("/login", (req, res)=>{
     res.render("login");
 })
@@ -31,6 +32,7 @@ app.post("/login", (req, res)=>{
     res.render("/allRecipes")
 })
 
+// signup routes
 app.get("/signup", (req, res)=>{
     res.render("signUp")
 })
@@ -38,12 +40,6 @@ app.get("/signup", (req, res)=>{
 app.post("/signup", (req, res)=>{
     res.render("/login")
 })
-
-app.get("/recipes",function(req, res) {
-    
-    res.render("index", {recipes:recipes});
-    
-});
 
 
 app.listen(3000, function() {

@@ -11,7 +11,7 @@ var Recipe = require("../models/recipe");
 //   res.render("landing", { Recipe });
 // });
 
-router.get("/allRecipes", function(req, res, next) {
+router.get("/", function(req, res, next) {
    Recipe.find({},function(err,allRecipes){
     if(err)
     {
@@ -19,7 +19,7 @@ router.get("/allRecipes", function(req, res, next) {
     }
     else{
         console.log(req.body);
-        // res.send("All recipes are here!!");
+        res.send("All recipes are here!!");
         // res.render("allRecipes",{recipes:allRecipes});
     }
   });
@@ -38,7 +38,9 @@ router.post("/new", function(req, res){
         var name= req.body.name;
         var image= req.body.image;
         var desc= req.body.desc;
-        var newRecipe= {userName: user,name:name, image:image, desc:desc};
+        var ingredients= req.body.ingredients;
+        var method= req.body.method;
+        var newRecipe= {userName: user,name:name, image:image, desc:desc, ingredients:ingredients, method:method};
         Recipe.create(newRecipe, function(err, newRecipeObj){
           if(err){
             console.log(err);
