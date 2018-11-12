@@ -12,37 +12,18 @@ router.get("/", function(req, res, next) {
 });
 
 router.get("/all", function(req, res, next) {
-  // request(
-  //   " https://www.food2fork.com/api/search?key=5785b0bb7e316777b636de085c35d1bf",
-  //   function(error, response, body) {
-  //     if (!error && response.statusCode == 200) {
-  //       var x = JSON.parse(body);
-  //       console.log(x,"************");
-  //       var y = x.recipes;
-  //       console.log(y,"###########################");
-  //       // y.forEach(data => {
-  //         res.render("index", { recipes:y });
-  //       // });
-  //       // fs.writeFile('mynewfile3.js', JSON.stringify(y), function (err) {
-  //       //         if (err) throw err;
-  //       //         console.log('Saved!');
-  //       //       });
-  //     }
-  //   }
-  // );
-
-  Recipe.find({},function(err,allRecipes){
+   Recipe.find({},function(err,allRecipes){
     if(err)
     {
         console.log(err);
     }
     else{
-        res.render("show",{recipe:allRecipes});
+        console.log(req.body);
+        res.render("allRecipes",{recipes:allRecipes});
     }
   });
-  app.get("/recipees/landing",function(req,res){
-      res.render("landing");
-  });
+  //res.send("All recipes are here!!")
+  
 });
 
 router.get("/new", function(req, res) {
@@ -63,16 +44,16 @@ router.post("/new", function(req, res){
           }
           else{
             console.log("Entry made to db")
-            res.redirect("/index");
+            res.redirect("/landing");
           }
         })
 })
 
-      router.get('/:id', function(req, res, next){
-              console.log(req.body,"!!!!!!!!!!!!!!!!!!!!!!");
-       // var recipe = Recipe.find(val => val.id === Number(req.params.id));
-        res.render('show', {recipe: req.body});
-      });
+      // router.get('/:id', function(req, res, next){
+      //         console.log(req.body,"!!!!!!!!!!!!!!!!!!!!!!");
+      //  // var recipe = Recipe.find(val => val.id === Number(req.params.id));
+      //   res.render('show', {recipe: req.body});
+      // });
 
 //       router.get('/:id/edit', function(req, res, next){
 //         var recipe = Recipe.find(val => val.id === Number(req.params.id));

@@ -4,10 +4,10 @@ var mongoose = require("mongoose");
 //   { useNewUrlParser: true }
 // );
 var recipeSchema = new mongoose.Schema({
-  userName: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "user"
-  },
+  // userName: {
+  //   type: mongoose.Schema.Types.ObjectId,
+  //   ref: "user"
+  // },
   title: String,
   image: String,
   description: String
