@@ -16,9 +16,10 @@ var recipeSchema = new mongoose.Schema({
   comments: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "comment"
+      ref: "Comment"
     }
-  ]
+  ],
+  // username: String
 });
 
 var Recipe = mongoose.model("Recipe", recipeSchema);

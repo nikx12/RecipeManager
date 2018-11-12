@@ -1,8 +1,10 @@
 var express = require("express");
 var request = require("request");
+var bodyParser = require('body-parser');
 var router = express.Router();
 //var User = require('../models/user');
 var Recipe = require("../models/recipe");
+router.use(bodyParser.json())
 // var fs = require('fs');
 
 
@@ -10,44 +12,51 @@ var Recipe = require("../models/recipe");
 // router.get("/", function(req, res, next) {
 //   res.render("landing", { Recipe });
 // });
-
+// console.log("RRECIPEEEEE", Recipe)
 router.get("/", function(req, res, next) {
    Recipe.find({},function(err,allRecipes){
     if(err)
     {
+      console.log("ERRRRRRROORRRRR")
         console.log(err);
     }
     else{
         console.log(req.body);
-        res.send("All recipes are here!!");
-        // res.render("allRecipes",{recipes:allRecipes});
+        console.log(allRecipes, "@@@@@@@@")
+       // res.send("All recipes are here!!");
+        res.redirect("/allRecipes");
     }
   });
   //
   
 });
 
-router.get("/new", function(req, res) {
+router.get("/addRecipe", function(req, res) {
   res.render("addRecipe");
 });
 
-router.post("/new", function(req, res){
+router.post("/addRecipe", function(req, res){
         console.log(req.body, "%%%%%%%%%%%%%%%%%%%%%%%%%%%")
         // res.send("<h1>You have clicked on submit for new recipe</h1>");
         var user= "test"
-        var name= req.body.name;
+        var name= req.body.title;
         var image= req.body.image;
-        var desc= req.body.desc;
+        var desc= req.body.description;
         var ingredients= req.body.ingredients;
         var method= req.body.method;
-        var newRecipe= {userName: user,name:name, image:image, desc:desc, ingredients:ingredients, method:method};
+        var newRecipe= {name:name, image:image, description:desc, ingredients:ingredients, method:method, username: user};
+        console.log("$$$$$$$$$$$", newRecipe)
         Recipe.create(newRecipe, function(err, newRecipeObj){
+          console.log("^^^^^^^^^", newRecipe)
           if(err){
+            console.log("^^^^^^^^^", newRecipe)
+
             console.log(err);
           }
           else{
             console.log("Entry made to db")
-            res.redirect("/landing");
+            console.log("************", newRecipeObj)
+            res.redirect("landing");
           }
         })
 })
