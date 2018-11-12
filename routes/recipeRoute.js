@@ -3,7 +3,7 @@ var request = require("request");
 var router = express.Router();
 //var User = require('../models/user');
 var Recipe = require("../models/recipe");
-var fs = require('fs');
+// var fs = require('fs');
 
 
 //home page route
@@ -11,7 +11,7 @@ var fs = require('fs');
 //   res.render("landing", { Recipe });
 // });
 
-router.get("/all", function(req, res, next) {
+router.get("/allRecipes", function(req, res, next) {
    Recipe.find({},function(err,allRecipes){
     if(err)
     {
@@ -19,10 +19,11 @@ router.get("/all", function(req, res, next) {
     }
     else{
         console.log(req.body);
-        res.render("allRecipes",{recipes:allRecipes});
+        // res.send("All recipes are here!!");
+        // res.render("allRecipes",{recipes:allRecipes});
     }
   });
-  //res.send("All recipes are here!!")
+  //
   
 });
 

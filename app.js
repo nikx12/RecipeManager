@@ -17,19 +17,6 @@ app.use(expressValidator());
 
 app.use('/recipes', recipeRoutes);
 
-//  Recipe.create(recipes,function(err, recipe){
-//     if(err){
-//         console.log("issue occurred");
-//     }
-//     else{
-//         console.log(("Recipes saved to DB successfully"));
-//         console.log(recipe);
-        
-//     }
-        
-       
-//       });
-
 //INDEX Route
 
 app.get("/", function(req, res) {
@@ -48,12 +35,15 @@ app.get("/signup", (req, res)=>{
     res.render("signUp")
 })
 
-// app.get("/recipes",function(req, res) {
-    
-//     res.render("index", {recipes:recipes});
-    
-// });
+app.post("/signup", (req, res)=>{
+    res.render("/login")
+})
 
+app.get("/recipes",function(req, res) {
+    
+    res.render("index", {recipes:recipes});
+    
+});
 
 
 app.listen(3000, function() {
