@@ -12,7 +12,13 @@ var recipeSchema = new mongoose.Schema({
   image: String,
   description: String,
   ingredients: String,
-  method: String
+  method: String,
+  comments: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "comment"
+    }
+  ]
 });
 
 var Recipe = mongoose.model("Recipe", recipeSchema);
