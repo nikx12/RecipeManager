@@ -7,11 +7,14 @@ var expressValidator = require("express-validator");
 var recipeRoutes = require("./routes/recipeRoute");
 var morgan = require("morgan");
 var Recipe = require("./models/recipe");
-var User = require('./models/user');
-var Comment = require('./models/comment');
+var User = require("./models/user");
+var Comment = require("./models/comment");
 
-mongoose.set('debug', true);
-mongoose.connect('mongodb://localhost:27017/recipe_manager', { useNewUrlParser: true });
+mongoose.set("debug", true);
+mongoose.connect(
+  "mongodb://localhost:27017/recipe_manager",
+  { useNewUrlParser: true }
+);
 // APP CONFIG
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -22,20 +25,22 @@ app.use(expressValidator());
 
 app.use("/recipes", recipeRoutes);
 
-Recipe.create({
+Recipe.create(
+  {
     title: "Test recipe",
-    image:"https://upload.wikimedia.org/wikipedia/en/9/95/Test_image.jpg",
+    image: "https://upload.wikimedia.org/wikipedia/en/9/95/Test_image.jpg",
     description: "Testing desc",
     ingredients: "Test ingredients",
     method: "Test method"
-}, function(err, res){
-    if(err){
-        console.log("ERROR")
+  },
+  function(err, res) {
+    if (err) {
+      console.log("ERROR");
+    } else {
+      console.log("UESSSSSS");
     }
-    else{
-        console.log("UESSSSSS")
-    }
-})
+  }
+);
 
 //INDEX Route
 
@@ -48,6 +53,7 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 app.post("/login", (req, res) => {
+    
   res.redirect("/allRecipes");
 });
 
@@ -57,7 +63,32 @@ app.get("/signup", (req, res) => {
 });
 
 app.post("/signup", (req, res) => {
-  res.redirect("/login");
+  console.log(req.body, "SIGNUPPP");
+
+  var userName = req.body.username;
+  var firstName = req.body.firstName;
+  var lastName = req.body.lastName;
+  var password = req.body.password;
+  var email = req.body.email;
+  var phoneNumber = req.body.phoneNumber;
+  var newUser = {
+    firstName: firstName,
+    lastName: lastName,
+    email: email,
+    phoneNumber: phoneNumber,
+    password: password,
+    userName: userName
+  };
+  console.log("USERRRR", newUser);
+  User.create(newUser, function(err, newUserObj) {
+    if (err) {
+      console.log(err);
+    } else {
+      console.log("Entry made to user db");
+      console.log("******USERR******", newUserObj);
+      res.redirect("/login");
+    }
+  });
 });
 
 app.listen(3000, function() {
