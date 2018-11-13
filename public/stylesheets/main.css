@@ -1,3 +1,12 @@
 div
 {
-    font-family: 'Poor Story', cursive;}
+    font-family: 'Poor Story', cursive;
+}
+nav, nav div{
+    font-family: 'Cinzel', serif;
+    font-weight: 700;
+}
+div h1, div h2{
+    font-family: 'Cinzel', serif;
+
+}
