@@ -21,14 +21,13 @@ router.get("/", function(req, res, next) {
         console.log(err);
     }
     else{
-        console.log(req.body);
+       // console.log(req.body);
         console.log(allRecipes, "@@@@@@@@")
        // res.send("All recipes are here!!");
-        res.redirect("/allRecipes");
+       res.render("allRecipes",{recipes:allRecipes});
     }
   });
-  //
-  
+ 
 });
 
 router.get("/addRecipe", function(req, res) {
@@ -56,7 +55,7 @@ router.post("/addRecipe", function(req, res){
           else{
             console.log("Entry made to db")
             console.log("************", newRecipeObj)
-            res.redirect("landing");
+            res.redirect("/recipes");
           }
         })
 })

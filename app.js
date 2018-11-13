@@ -7,6 +7,11 @@ var expressValidator = require("express-validator");
 var recipeRoutes = require("./routes/recipeRoute");
 var morgan = require("morgan");
 var Recipe = require("./models/recipe");
+var User = require('./models/user');
+var Comment = require('./models/comment');
+
+mongoose.set('debug', true);
+mongoose.connect('mongodb://localhost:27017/recipe_manager', { useNewUrlParser: true });
 // APP CONFIG
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -23,6 +28,13 @@ Recipe.create({
     description: "Testing desc",
     ingredients: "Test ingredients",
     method: "Test method"
+}, function(err, res){
+    if(err){
+        console.log("ERROR")
+    }
+    else{
+        console.log("UESSSSSS")
+    }
 })
 
 //INDEX Route
