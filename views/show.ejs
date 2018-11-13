@@ -1,18 +1,25 @@
 <% include ./partials/header %>
-<div class="container">
+<div class="container" style="margin-top:10px">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-2">
     </div>
-        <div class="col-md-9">
+        <div class="col-md-10">
             <div class="thumbnail">
-                <img class="" src="<%= recipe.image %>" height="150px" width="150px" >
-                <div class="">
-                    <h4><a><%=recipe.title%></a></h4>
-                    <p><%= recipe.description %></p>
+                <img class="" src="<%= recipe.image %>" height="250px" width="250px" >
+            </div> 
+                    <h3><%=recipe.title%></h3>
+                    <div class="">
+                       <p style="font-weight:bold">Description: &nbsp;</p> 
+                    <p><%= recipe.description %></p> 
+                    
+                    <p style="font-weight:bold">Ingredients: &nbsp;</p> 
+
                     <p><%= recipe.ingredients %></p>
+                    <p style="font-weight:bold">Method: &nbsp;</p> 
+
                     <p><%= recipe.method %></p>
                 </div>
-            </div>
+            <a href="/recipes">Back</a>
         
             </div>
         </div>
