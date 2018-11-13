@@ -2,7 +2,10 @@ var express = require("express"),
   app = express(),
   methoOverride = require("method-override"),
   bodyParser = require("body-parser"),
-  mongoose = require("mongoose");
+  mongoose = require("mongoose"),
+  passport= require("passport"),
+  passLocal= require("passport-local"),
+  passportLocalMongoose= require("passport-local-mongoose");
 var expressValidator = require("express-validator");
 var recipeRoutes = require("./routes/recipeRoute");
 var morgan = require("morgan");
@@ -22,7 +25,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methoOverride("_method"));
 app.use(morgan("tiny"));
 app.use(expressValidator());
-
+app.use(passport.initialize());
+app.use(passport.session());
 app.use("/recipes", recipeRoutes);
 
 // Recipe.create(
@@ -56,6 +60,11 @@ app.post("/login", (req, res) => {
 
   res.redirect("/allRecipes");
 });
+
+// profile page
+app.get("/profile", (req, res)=>{
+    res.render("profile")
+})
 
 // signup routes
 app.get("/signup", (req, res) => {
