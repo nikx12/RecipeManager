@@ -1,33 +1,35 @@
 <% include ./partials/header %>
 <div class="container">
-    <div class="row">
-        <h1 style="text-align: center;">Creating a New Recipe</h1>
-        <div class="row" style="width: 30%; margin: 25px auto;">
-            <form action="/addRecipe" method="POST">
+    <div class="row align-items-center" style="">
+        <h2 style="margin: 0 auto;display: inline-block;">Creating a New Recipe</h2>
+        </div>
+        <div class="" style="width: 30%; margin: 25px auto;">
+            <form action="/recipes/addRecipe" method="POST">
            <div class="form-group">
-                <input class="form-control" type="text" name="title" placeholder="Title">
+                <input class="form-control" type="text" required name="title" placeholder="Title">
             </div>
             <div class="form-group">
-                <input class="form-control" type="text" name="image" placeholder="Image URL">
+                <input class="form-control" type="text" required name="image" placeholder="Image URL">
             </div>
             <div class="form-group">
-                <input class="form-control" type="text" name="description" placeholder="Description">
+                <input class="form-control" type="text" required name="description" placeholder="Description">
             </div>
             <div class="form-group">
-                <input class="form-control" type="text" name="ingredients" placeholder="Ingredients">
+                <input class="form-control" type="text" required name="ingredients" placeholder="Ingredients">
             </div>
             <div class="form-group">
-                <input class="form-control" type="text" name="method" placeholder="Method">
+                <input class="form-control" type="text" required name="method" placeholder="Method">
             </div>
             <div class="form-group">
             <button class="btn btn-lg btn-primary btn-block">Submit!</button>
             </div>
             
             </form>
-             <a href="/">Go Back</a>
+            
         </div>
-
+        <div class="row">
+                <a href="/">Go Back</a>
+        </div>
        
-</div>
 </div>
 <% include ./partials/footer %>
