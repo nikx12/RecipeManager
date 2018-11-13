@@ -64,7 +64,7 @@ app.post(
 );
 
 // profile page
-app.get("/profile", (req, res) => {
+app.get("/profile",isLoggedIn, (req, res) => {
   res.render("profile");
 });
 
@@ -104,9 +104,18 @@ app.post("/signup", (req, res) => {
 //logout route
 
 app.get('/profile/logout',(req,res)=>{
-  req.logout()
-  res.redirect('/')
-})
+  req.logout();
+  res.redirect('/');
+});
+
+// middleware
+function isLoggedIn(req,res,next) {
+  if(req.isAuthenticated()){
+      return next()
+  }
+  res.redirect('/login')
+}
+
 
 app.listen(3000, function() {
   console.log("Server started!!");
