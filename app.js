@@ -25,22 +25,22 @@ app.use(expressValidator());
 
 app.use("/recipes", recipeRoutes);
 
-Recipe.create(
-  {
-    title: "Test recipe",
-    image: "https://upload.wikimedia.org/wikipedia/en/9/95/Test_image.jpg",
-    description: "Testing desc",
-    ingredients: "Test ingredients",
-    method: "Test method"
-  },
-  function(err, res) {
-    if (err) {
-      console.log("ERROR");
-    } else {
-      console.log("UESSSSSS");
-    }
-  }
-);
+// Recipe.create(
+//   {
+//     title: "Test recipe",
+//     image: "https://upload.wikimedia.org/wikipedia/en/9/95/Test_image.jpg",
+//     description: "Testing desc",
+//     ingredients: "Test ingredients",
+//     method: "Test method"
+//   },
+//   function(err, res) {
+//     if (err) {
+//       console.log("ERROR");
+//     } else {
+//       console.log("UESSSSSS");
+//     }
+//   }
+// );
 
 //INDEX Route
 
@@ -53,7 +53,7 @@ app.get("/login", (req, res) => {
   res.render("login");
 });
 app.post("/login", (req, res) => {
-    
+
   res.redirect("/allRecipes");
 });
 

@@ -43,7 +43,7 @@ router.post("/addRecipe", function(req, res){
         var desc= req.body.description;
         var ingredients= req.body.ingredients;
         var method= req.body.method;
-        var newRecipe= {name:name, image:image, description:desc, ingredients:ingredients, method:method, username: user};
+        var newRecipe= {title:name, image:image, description:desc, ingredients:ingredients, method:method, username: user};
         console.log("$$$$$$$$$$$", newRecipe)
         Recipe.create(newRecipe, function(err, newRecipeObj){
           console.log("^^^^^^^^^", newRecipe)
@@ -60,11 +60,19 @@ router.post("/addRecipe", function(req, res){
         })
 })
 
-      // router.get('/:id', function(req, res, next){
-      //         console.log(req.body,"!!!!!!!!!!!!!!!!!!!!!!");
-      //  // var recipe = Recipe.find(val => val.id === Number(req.params.id));
-      //   res.render('show', {recipe: req.body});
-      // });
+//route to show info about one particular recipe
+      router.get('/:id', function(req, res, next){
+        Recipe.findById(req.params.id, (err, foundRecipe)=>{
+          if(err){
+            console.log("ERRROR IN FINDING ID")
+          }
+          else{
+            console.log(req.params,"!!!!!!!!!!!!!!!!!!!!!!");
+            res.render('show', {recipe: foundRecipe});
+          }
+        })
+        
+      });
 
 //       router.get('/:id/edit', function(req, res, next){
 //         var recipe = Recipe.find(val => val.id === Number(req.params.id));
