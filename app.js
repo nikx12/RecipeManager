@@ -3,9 +3,9 @@ var express = require("express"),
   methoOverride = require("method-override"),
   bodyParser = require("body-parser"),
   mongoose = require("mongoose"),
-  passport= require("passport"),
-  passLocal= require("passport-local").Strategy,
-  passportLocalMongoose= require("passport-local-mongoose");
+  passport = require("passport"),
+  passLocal = require("passport-local").Strategy,
+  passportLocalMongoose = require("passport-local-mongoose");
 var expressValidator = require("express-validator");
 var recipeRoutes = require("./routes/recipeRoute");
 var morgan = require("morgan");
@@ -26,11 +26,13 @@ app.use(methoOverride("_method"));
 app.use(morgan("tiny"));
 app.use(expressValidator());
 
-app.use(require("express-session")({
+app.use(
+  require("express-session")({
     secret: "Passport is the key",
     resave: false,
     saveUninitialized: false
-}));
+  })
+);
 
 app.use(passport.initialize());
 app.use(passport.session());
@@ -49,15 +51,22 @@ app.get("/", function(req, res) {
 app.get("/login", (req, res) => {
   res.render("login");
 });
-app.post("/login", (req, res) => {
 
-  res.redirect("/allRecipes");
-});
+app.post(
+  "/login",
+  passport.authenticate("local", {
+    successRedirect: "/profile",
+    failureRedirect: "/login"
+  }),
+  (req, res) => {
+    console.log("In login's callback function")
+  }
+);
 
 // profile page
-app.get("/profile", (req, res)=>{
-    res.render("profile")
-})
+app.get("/profile", (req, res) => {
+  res.render("profile");
+});
 
 // signup routes
 app.get("/signup", (req, res) => {
@@ -79,27 +88,17 @@ app.post("/signup", (req, res) => {
     lastName: lastName,
     email: email,
     phoneNumber: phoneNumber
-    
   });
   console.log("USERRRR", newUser);
-//   User.create(newUser, function(err, newUserObj) {
-//     if (err) {
-//       console.log(err);
-//     } else {
-//       console.log("Entry made to user db");
-//       console.log("******USERR******", newUserObj);
-//       res.redirect("/login");
-//     }
-//   });
-User.register(newUser, req.body.password, (err, user)=>{
-    if(err){
-        console.log(err);
-        return res.render('signUp')
+  User.register(newUser, req.body.password, (err, user) => {
+    if (err) {
+      console.log(err);
+      return res.render("signUp");
     }
-    passport.authenticate("local")(req,res,()=>{
-        res.redirect("/profile");
-    })
-})
+    passport.authenticate("local")(req, res, () => {
+      res.redirect("/profile");
+    });
+  });
 });
 
 app.listen(3000, function() {
