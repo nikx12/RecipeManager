@@ -101,6 +101,13 @@ app.post("/signup", (req, res) => {
   });
 });
 
+//logout route
+
+app.get('/profile/logout',(req,res)=>{
+  req.logout()
+  res.redirect('/')
+})
+
 app.listen(3000, function() {
   console.log("Server started!!");
 });
