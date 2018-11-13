@@ -4,7 +4,7 @@ var express = require("express"),
   bodyParser = require("body-parser"),
   mongoose = require("mongoose"),
   passport= require("passport"),
-  passLocal= require("passport-local"),
+  passLocal= require("passport-local").Strategy,
   passportLocalMongoose= require("passport-local-mongoose");
 var expressValidator = require("express-validator");
 var recipeRoutes = require("./routes/recipeRoute");
@@ -25,26 +25,19 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(methoOverride("_method"));
 app.use(morgan("tiny"));
 app.use(expressValidator());
+
+app.use(require("express-session")({
+    secret: "Passport is the key",
+    resave: false,
+    saveUninitialized: false
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
+passport.use(new passLocal(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 app.use("/recipes", recipeRoutes);
-
-// Recipe.create(
-//   {
-//     title: "Test recipe",
-//     image: "https://upload.wikimedia.org/wikipedia/en/9/95/Test_image.jpg",
-//     description: "Testing desc",
-//     ingredients: "Test ingredients",
-//     method: "Test method"
-//   },
-//   function(err, res) {
-//     if (err) {
-//       console.log("ERROR");
-//     } else {
-//       console.log("UESSSSSS");
-//     }
-//   }
-// );
 
 //INDEX Route
 
@@ -74,30 +67,39 @@ app.get("/signup", (req, res) => {
 app.post("/signup", (req, res) => {
   console.log(req.body, "SIGNUPPP");
 
-  var userName = req.body.username;
+  var username = req.body.username;
   var firstName = req.body.firstName;
   var lastName = req.body.lastName;
   var password = req.body.password;
   var email = req.body.email;
   var phoneNumber = req.body.phoneNumber;
-  var newUser = {
+  var newUser = new User({
+    username: username,
     firstName: firstName,
     lastName: lastName,
     email: email,
-    phoneNumber: phoneNumber,
-    password: password,
-    userName: userName
-  };
-  console.log("USERRRR", newUser);
-  User.create(newUser, function(err, newUserObj) {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log("Entry made to user db");
-      console.log("******USERR******", newUserObj);
-      res.redirect("/login");
-    }
+    phoneNumber: phoneNumber
+    
   });
+  console.log("USERRRR", newUser);
+//   User.create(newUser, function(err, newUserObj) {
+//     if (err) {
+//       console.log(err);
+//     } else {
+//       console.log("Entry made to user db");
+//       console.log("******USERR******", newUserObj);
+//       res.redirect("/login");
+//     }
+//   });
+User.register(newUser, req.body.password, (err, user)=>{
+    if(err){
+        console.log(err);
+        return res.render('signUp')
+    }
+    passport.authenticate("local")(req,res,()=>{
+        res.redirect("/profile");
+    })
+})
 });
 
 app.listen(3000, function() {
