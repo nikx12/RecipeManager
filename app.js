@@ -116,6 +116,19 @@ function isLoggedIn(req,res,next) {
   res.redirect('/login')
 }
 
+//search route
+app.get('/search/:title',(req,res)=>{
+ var title= req.params.title;
+ Recipe.find({title:title}, (err, recipesList)=>{
+   if(err){
+     console.log("NO such recipe was found")
+   }
+   else{
+     res.render('search', {recipes: recipesList});
+   }
+ })
+  
+});
 
 app.listen(3000, function() {
   console.log("Server started!!");
