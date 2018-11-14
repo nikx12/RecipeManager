@@ -117,19 +117,22 @@ function isLoggedIn(req,res,next) {
 }
 
 //search route
-app.get('/search/:title',(req,res)=>{
- var title= req.params.title;
- Recipe.find({title:title}, (err, recipesList)=>{
+app.get('/search',(req,res)=>{
+ var title= req.query.title;
+ console.log("SEARCHHH TITLE", title)
+ Recipe.find({'title':title}, (err, recipesList)=>{
    if(err){
      console.log("NO such recipe was found")
    }
    else{
-     res.render('search', {recipes: recipesList});
+    //  res.send("YAYAAAYYYY")
+    console.log("RECIPESSS", recipesList)
+    res.render('search', {recipes: recipesList});
    }
  })
   
 });
 
-app.listen(3000, function() {
+app.listen(3002, function() {
   console.log("Server started!!");
 });

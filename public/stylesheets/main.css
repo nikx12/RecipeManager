@@ -13,3 +13,6 @@ div h1, div h2{
 .jumbotron{
     background-color: lightsteelblue;
 }
+.form-control{
+    text-transform: lowercase;
+}
