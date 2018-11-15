@@ -13,6 +13,7 @@ router.use(bodyParser.json())
 //   res.render("landing", { Recipe });
 // });
 // console.log("RRECIPEEEEE", Recipe)
+
 router.get("/", function(req, res, next) {
    Recipe.find({},function(err,allRecipes){
     if(err)

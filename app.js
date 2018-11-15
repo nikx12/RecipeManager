@@ -39,7 +39,14 @@ app.use(passport.session());
 passport.use(new passLocal(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
+
+app.use((req,res,next)=>{
+  res.locals.currentUser = req.user;
+  console.log("USERRRR", req.user)
+  next()
+})
 app.use("/recipes", recipeRoutes);
+
 
 //INDEX Route
 
@@ -55,7 +62,7 @@ app.get("/login", (req, res) => {
 app.post(
   "/login",
   passport.authenticate("local", {
-    successRedirect: "/profile",
+    successRedirect: "/",
     failureRedirect: "/login"
   }),
   (req, res) => {
@@ -103,7 +110,7 @@ app.post("/signup", (req, res) => {
 
 //logout route
 
-app.get('/profile/logout',(req,res)=>{
+app.get('/logout',(req,res)=>{
   req.logout();
   res.redirect('/');
 });
