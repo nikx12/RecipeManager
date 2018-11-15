@@ -4,15 +4,17 @@ var bodyParser = require('body-parser');
 var router = express.Router();
 //var User = require('../models/user');
 var Recipe = require("../models/recipe");
+var Comments = require("../models/comment");
+
 router.use(bodyParser.json())
-// var fs = require('fs');
 
+function isLoggedIn(req,res,next) {
+  if(req.isAuthenticated()){
+      return next()
+  }
+  res.redirect('/login')
+}
 
-//home page route
-// router.get("/", function(req, res, next) {
-//   res.render("landing", { Recipe });
-// });
-// console.log("RRECIPEEEEE", Recipe)
 
 router.get("/", function(req, res, next) {
    Recipe.find({},function(err,allRecipes){
@@ -74,7 +76,38 @@ router.post("/addRecipe", function(req, res){
         })
         
       });
+      router.get('/:id/comments/new',isLoggedIn,(req,res)=>{
+        Recipe.findById(req.params.id,(err,recipe)=>{
+            if(err){
+                console.log(err)
+            }
+            else {
+                res.render('comments/new',{recipe:recipe})
+            }
+        })
+    });
 
+    router.post('/:id/comments',isLoggedIn,(req,res)=>{
+      Recipe.findById(req.params.id,(err,recipe)=>{
+          if(err) {
+              console.log(err)
+              res.redirect('/recipes')
+          } else {
+              Comments.create(req.body.comment,(err,comment)=>{
+                  if(err){
+                    console.log(err)
+                  }
+                  else {
+                    recipe.comments.push(comment)
+                       recipe.save()
+                      res.redirect('/recipes/'+recipe.id)
+ 
+                  }
+              })
+          }
+      })
+ })
+    
 //       router.get('/:id/edit', function(req, res, next){
 //         var recipe = Recipe.find(val => val.id === Number(req.params.id));
 //         res.render('edit', {recipe});
@@ -102,23 +135,5 @@ router.post("/addRecipe", function(req, res){
 //         Recipe.splice(recipeIndex,1);
 //         res.redirect('/');
 //       });
-
-//CREATE - add new recipe to DB
-// router.post("/recipes", function(req, res){
-//     // get data from form and add to recipes array
-//     var title = req.body.title;
-//     var image = req.body.image;
-//     var desc = req.body.description;
-//     var newRecipe = {title: title, image: image, description: desc}
-//     // Create a new recipe and save to DB
-//     Recipe.create(newRecipe, function(err, newlyCreated){
-//         if(err){
-//             console.log(err);
-//         } else {
-//             //redirect back to recipes page
-//             res.redirect("/recipes");
-//         }
-//     });
-// });
 
 module.exports = router;

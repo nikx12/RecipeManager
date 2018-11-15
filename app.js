@@ -11,7 +11,7 @@ var recipeRoutes = require("./routes/recipeRoute");
 var morgan = require("morgan");
 var Recipe = require("./models/recipe");
 var User = require("./models/user");
-var Comment = require("./models/comment");
+var CommentRoutes = require("./models/comment");
 
 mongoose.set("debug", true);
 mongoose.connect(
@@ -46,7 +46,7 @@ app.use((req,res,next)=>{
   next()
 })
 app.use("/recipes", recipeRoutes);
-
+app.use("/comment", CommentRoutes);
 
 //INDEX Route
 
