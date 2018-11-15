@@ -65,7 +65,7 @@ router.post("/addRecipe", function(req, res){
 
 //route to show info about one particular recipe
       router.get('/:id', function(req, res, next){
-        Recipe.findById(req.params.id, (err, foundRecipe)=>{
+        Recipe.findById(req.params.id).populate('comments').exec((err, foundRecipe)=>{
           if(err){
             console.log("ERRROR IN FINDING ID")
           }

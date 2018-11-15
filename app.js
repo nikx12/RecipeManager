@@ -140,6 +140,6 @@ app.get('/search',(req,res)=>{
   
 });
 
-app.listen(3002, function() {
+app.listen(3001, function() {
   console.log("Server started!!");
 });
